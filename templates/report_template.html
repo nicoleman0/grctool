@@ -4,14 +4,26 @@
   <meta charset="UTF-8">
   <title>Compliance Report</title>
   <style>
-    body { font-family: Arial, sans-serif; }
-    .pass { color: green; }
-    .fail { color: red; }
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    h1 { color: #333; }
+    table { border-collapse: collapse; width: 100%; margin-top: 20px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .pass { color: green; font-weight: bold; }
+    .fail { color: red; font-weight: bold; }
+    .metadata { margin-bottom: 20px; }
   </style>
 </head>
 <body>
   <h1>System Compliance Report</h1>
-  <table border="1" cellspacing="0" cellpadding="6">
+  <div class="metadata">
+    <p><strong>Hostname:</strong> {{ metadata.hostname }}</p>
+    <p><strong>Operating System:</strong> {{ metadata.os_version }}</p>
+    <p><strong>User:</strong> {{ metadata.user }}</p>
+    <p><strong>Scan Timestamp:</strong> {{ metadata.timestamp }}</p>
+  </div>
+
+  <table>
     <tr><th>Check</th><th>Status</th></tr>
     {% for item in results %}
       <tr>

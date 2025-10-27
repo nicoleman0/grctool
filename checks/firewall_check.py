@@ -1,3 +1,5 @@
+# this module uses the system command 'ufw' to check the firewall status against a given baseline.
+
 import subprocess
 
 

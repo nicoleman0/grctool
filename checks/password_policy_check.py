@@ -1,17 +1,22 @@
-import subprocess
+# This module checks the system's password policy (in /etc/login.defs) against a given baseline.
+
+def get_value_from_login_defs(key):
+    with open("/etc/login.defs", "r") as f:
+        for line in f:
+            if line.strip().startswith(key):
+                parts = line.split()
+                if len(parts) >= 2:
+                    return parts[1]
+    return None
 
 
 def check_password_policy(baseline):
+    min_len = get_value_from_login_defs("PASS_MIN_LEN")
     results = []
-    try:
-        output = subprocess.check_output(
-            ["sudo", "grep", "PASS", "/etc/login.defs"]).decode()
-        if f"PASS_MIN_LEN\t{baseline['min_length']}" in output:
-            results.append(
-                {"check": f"Min length = {baseline['min_length']}", "status": "pass"})
-        else:
-            results.append({"check": "Password min length", "status": "fail"})
-    except Exception as e:
-        results.append({"check": "Password policy check",
-                       "status": "fail", "reason": str(e)})
+    if min_len and int(min_len) >= baseline["min_length"]:
+        results.append(
+            {"check": f"Min length ≥ {baseline['min_length']}", "status": "pass"})
+    else:
+        results.append(
+            {"check": f"Min length ≥ {baseline['min_length']}", "status": "fail"})
     return results
