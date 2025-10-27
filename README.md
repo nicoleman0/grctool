@@ -19,6 +19,7 @@ The report template is located at `/templates/report_template.html`.
 If you'd like the tool to include more metadata when it checks your system, you can add more fields by accessing the system metadata function at `/utils.py`.
 
 It currently supports:
+
 - hostname
 - os/os_version
 - user
