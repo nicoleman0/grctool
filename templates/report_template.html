@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Compliance Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    .pass { color: green; }
+    .fail { color: red; }
+  </style>
+</head>
+<body>
+  <h1>System Compliance Report</h1>
+  <table border="1" cellspacing="0" cellpadding="6">
+    <tr><th>Check</th><th>Status</th></tr>
+    {% for item in results %}
+      <tr>
+        <td>{{ item.check }}</td>
+        <td class="{{ item.status }}">{{ item.status|capitalize }}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>
