@@ -8,3 +8,9 @@ password_policy:
 
 firewall:
   required: true
+
+system_config:
+  auditd_enabled: true
+  passwd_permissions: "644"
+  shadow_permissions: "640"
+  require_updates: true

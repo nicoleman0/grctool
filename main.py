@@ -2,6 +2,7 @@ import yaml
 from checks.ssh_check import check_ssh_config
 from checks.password_policy_check import check_password_policy
 from checks.firewall_check import check_firewall
+from checks.sys_config_check import check_system_config
 from report_generator import generate_report
 from utils import get_system_metadata
 
@@ -26,6 +27,10 @@ def main():
 
     print("[*] Running firewall checks...")
     all_results.extend(check_firewall(baseline["firewall"]))
+
+    print("[*] Running system configuration checks...")
+    all_results.extend(check_system_config(
+        baseline.get("system_config", {})))
 
     generate_report(all_results, metadata)
 
